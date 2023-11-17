@@ -50,7 +50,7 @@ function getCircleCircumference(radius) {
  *  -3, 3  => 0
  */
 function getAverage(value1, value2) {
-  return (value1 + value2) / 2;
+  return value1 / 2 + value2 / 2;
 }
 
 /**
@@ -106,11 +106,7 @@ function getLinearEquationRoot(a, b) {
  *   (0,1) (0,1)     => 0
  */
 function getAngleBetweenVectors(x1, y1, x2, y2) {
-  const scal = x1 * x2 + y1 * y2;
-  const xLenght = Math.sqrt(x1 * x1 + x2 * x2);
-  const yLenght = Math.sqrt(y1 * y1 + y2 * y2);
-  const cos = scal / (xLenght * yLenght);
-  return Math.acos(cos);
+  return Math.abs(Math.atan2(y2, x2) - Math.atan2(y1, x1));
 }
 
 /**
@@ -159,8 +155,7 @@ function parseNumberFromString(value) {
  *   1,2,3   => 3.741657386773941
  */
 function getParallelepipedDiagonal(a, b, c) {
-  const x = Math.sqrt(a * a + b * b);
-  return Math.sqrt(c * c + x * x);
+  return Math.sqrt(a ** 2 + b ** 2 + c ** 2);
 }
 
 /**
@@ -241,7 +236,7 @@ function toNumber(value, def) {
  *   0  => 0
  */
 function getCube(num) {
-  return num * num * num;
+  return num ** 3;
 }
 
 /**
@@ -298,7 +293,7 @@ function getSumOfDigits(num) {
   let n = num;
   while (n !== 0) {
     sum += n % 10;
-    n = parseInt(n / 10);
+    n = parseInt(n / 10, 10);
   }
   return sum;
 }
@@ -344,7 +339,7 @@ function getSine(num) {
  * 2, 2    => '10'
  */
 function numberToStringInBase(number, base) {
-  return String(parseInt(String(number), base));
+  return number.toString(base);
 }
 
 /**
@@ -403,7 +398,7 @@ function toPrecision(number, precision) {
  * Number(-5)    => -5
  */
 function getNumberValue(number) {
-  return Number(number);
+  return number.valueOf();
 }
 
 /**
@@ -422,7 +417,7 @@ function getNumberValue(number) {
  * '5'      => false
  */
 function isNumber(number) {
-  return Number.isNumber(number);
+  return Number.isFinite(number);
 }
 
 /**
@@ -451,7 +446,7 @@ function isInteger(number) {
  * 'abcdefgh'      => NaN
  */
 function getFloatOnString(str) {
-  return parseFloat(str);
+  return Number.parseFloat(str);
 }
 
 /**
@@ -469,7 +464,7 @@ function getFloatOnString(str) {
  * '10', 8              => 8
  */
 function getIntegerOnString(str, base) {
-  return parseInt(str, base);
+  return Number.parseInt(str, base);
 }
 
 /**
@@ -541,8 +536,7 @@ function roundToNearestInteger(number) {
  * -5.5 => -5
  */
 function getIntegerPartNumber(number) {
-  if (number > 0) return Math.floor(number);
-  return Math.ceil(number);
+  return Math.trunc(number);
 }
 
 /**
@@ -558,7 +552,7 @@ function getIntegerPartNumber(number) {
  * 0.1, 0.2, 0.3 => 0.6
  */
 function getSumOfNumbers(x1, x2, x3) {
-  return x1 + x2 + x3;
+  return Number((x1 + x2 + x3).toPrecision(2));
 }
 
 /**
@@ -590,7 +584,7 @@ function getMaxNumber(firstNumber, secondNumber) {
  * -1, 1 => -1 | 0 | 1
  */
 function getRandomInteger(min, max) {
-  return Math.random() * (max - min) + min;
+  return min + Math.floor(Math.random() * (max - min));
 }
 
 /**
@@ -604,7 +598,7 @@ function getRandomInteger(min, max) {
  * 3, 4 => 5
  */
 function getHypotenuse(a, b) {
-  return Math.sqrt(a * a + b * b);
+  return Math.hypot(a, b);
 }
 
 /**
@@ -622,7 +616,7 @@ function getHypotenuse(a, b) {
  */
 function getCountOfOddNumbers(number) {
   let result = 0;
-  for (let i = 0; i <= number; i += 1) {
+  for (let i = 0; i <= Math.abs(number); i += 1) {
     if (i % 2 !== 0) result += 1;
   }
   return result;
